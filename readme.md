@@ -1,4 +1,3 @@
-
 # SSL Certificate Checker
 
 This is a full-stack application that checks the SSL certificates of domains and provides details such as validity, expiration date, issuer, and more. The backend is built using **Node.js** and **Express** with **JavaScript**, and the frontend is built using **Next.js 13+** with **TypeScript**. 
@@ -10,17 +9,21 @@ The backend handles API requests and returns JSON responses, while the frontend 
 1. [Features](#features)
 2. [Project Structure](#project-structure)
 3. [Setup Instructions](#setup-instructions)
+   - [Clone the Repository](#clone-the-repository)
    - [Backend Setup](#backend-setup)
    - [Frontend Setup](#frontend-setup)
-4. [Running the Application](#running-the-application)
-5. [Testing the Endpoints](#testing-the-endpoints)
-6. [Technologies Used](#technologies-used)
+4. [Environment Variables](#environment-variables)
+   - [Backend Environment Variables](#backend-environment-variables)
+5. [Running the Application](#running-the-application)
+6. [Testing the Endpoints](#testing-the-endpoints)
+7. [Technologies Used](#technologies-used)
 
 ## **Features**
 
 - Check SSL certificate details of any domain.
 - Validate SSL certificate status, expiration, issuer, and CRL/OCSP status.
 - Fetch and display all previously checked SSL certificates.
+- Centralized service for API calls to improve maintainability.
 - Frontend uses Next.js with TypeScript for a responsive UI.
 - Backend built with Node.js and Express with REST API endpoints.
 
@@ -55,6 +58,8 @@ project-root/
     │   │   └── page.tsx            # Main page component (Home page)
     │   ├── components/             # Reusable components
     │   │   └── CertificateResult.tsx # Component to display SSL check results in a table
+    │   ├── services/               # Centralized API service directory
+    │   │   └── apiService.ts       # Centralized API service for all API calls
     │   ├── types/                  # Types directory for TypeScript types
     │   │   └── sslTypes.ts         # Type definitions for SSL data
     ├── .eslintrc.json              # ESLint configuration
@@ -70,6 +75,15 @@ project-root/
 ```
 
 ## **Setup Instructions**
+
+### **Clone the Repository**
+
+First, clone the repository to your local machine:
+
+```bash
+git clone https://github.com/itsRkator/ssl-certificate-checker.git
+cd ssl-certificate-checker
+```
 
 ### **Backend Setup**
 
@@ -87,15 +101,9 @@ project-root/
    npm install
    ```
 
-3. **Configure MongoDB Connection:**
+3. **Configure Environment Variables:**
 
-   The backend requires a MongoDB instance to store SSL certificate data. In the `backend/mongo_uri.js` file, set your MongoDB connection string:
-
-   ```javascript
-   module.exports = 'mongodb://localhost:27017/ssl_checker';
-   ```
-
-   Replace `'mongodb://localhost:27017/ssl_checker'` with your MongoDB URI if needed.
+   Create a `.env` file in the `backend` directory and add the required environment variables. See [Environment Variables](#environment-variables) for more information.
 
 4. **Run the Backend Server:**
 
@@ -133,7 +141,20 @@ project-root/
 
    The frontend will run on `http://localhost:3000`.
 
-## **Running the Application**
+## **Environment Variables**
+
+### **Backend Environment Variables**
+
+Create a `.env` file in the `backend` directory with the following variables:
+
+```plaintext
+# .env (backend)
+
+MONGO_URI=mongodb://localhost:27017/ssl_checker  # MongoDB connection string
+PORT=8000                                          # Port number for backend server
+```
+
+### **Running the Application**
 
 - Ensure both the backend and frontend servers are running.
 - Open your browser and go to `http://localhost:3000` to access the SSL Certificate Checker interface.
